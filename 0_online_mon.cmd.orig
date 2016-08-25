@@ -1,0 +1,22 @@
+@echo off
+
+SET host=8.8.8.8
+
+:START
+ping -n 4 %host% -w 2999 | findstr /r /c:"TTL"
+if %ERRORLEVEL% NEQ 0 (
+	@echo Retrying 4 times...
+	ping -n 3 %host% -w 2999
+	ping -n 1 %host% -w 2999 | findstr /r /c:"TTL"
+	if %ERRORLEVEL% NEQ 0 (
+		start reboot.cmd
+		start keyblinker.vbs
+		echo Waiting for reboot
+		echo %DATE% %TIME% Reboot>>log.txt
+		ping localhost -n 95>NUL
+		echo Router restarted
+		goto START
+	)
+	goto START
+)
+goto START

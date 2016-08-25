@@ -1,0 +1,45 @@
+<testcases repeat="1">
+
+
+
+<case
+    id="1"
+    description1="Get /"
+    method="get"
+    url="http://192.168.0.1/"
+    verifypositive="Login"
+/>
+
+
+<case
+    id="2"
+    description1="Login to router"
+    method="get"
+    url="http://192.168.0.1/userRpm/LoginRpm.htm?Save=Save"
+    addheader="Cookie: Authorization=Basic%20cDo%3D|Referer: http://192.168.0.1/"
+    parseresponse="http://192.168.0.1/|/userRpm/Index.htm"
+    verifypositive="userRpm"
+/>
+
+
+<case
+    id="3"
+    description1="INDEX"
+    method="get"
+    url="http://192.168.0.1/{PARSEDRESULT}/userRpm/Index.htm"
+    addheader="Cookie: Authorization=Basic%20cDo%3D|Referer: http://192.168.0.1/"
+    verifypositive="FRAMESET"
+/>
+
+
+<case
+    id="4"
+    description1="Reboot router"
+    method="get"
+    url="http://192.168.0.1/{PARSEDRESULT}/userRpm/SysRebootRpm.htm?Reboot=Reboot"
+    addheader="Cookie: Authorization=Basic%20cDo%3D|Referer: http://192.168.0.1/{PARSEDRESULT}/userRpm/Index.htm"
+    verifypositive="Reboot"
+/>
+
+
+</testcases>
